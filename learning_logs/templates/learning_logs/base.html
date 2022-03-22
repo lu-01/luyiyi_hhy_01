@@ -1,0 +1,63 @@
+{% load bootstrap3 %}     <!-- 加载bootstrap3的模板标签集 -->
+
+<!DOCTYPE html>
+<html lang="zh-CN">      <!-- 中文网页 -->
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>学习笔记</title>
+    
+    {% bootstrap_css %}             <!-- 使用bootstrap的模板标签 -->
+    {% bootstrap_javascript %}
+</head>
+<body>
+    <!-- Static navbar -->
+    <nav class="navbar navbar-default navbar-static-top">   <!-- nav元素表示导航链接部分 -->
+		<div class="container">
+		
+			<div class="navbar-header">
+				<!--定义了一个按钮，在浏览器窗口太窄，无法水平显示整个导航栏时显示出来，
+					如果用户单击这个按钮，将出现一个下拉列表，包含所有的导航元素 
+					collapse会使导航栏折叠起来-->
+				<button type="button" class="navbar-toggle collapsed" 
+					data-toggle="collapse" data-target="#navbar"
+					aria-expanded="false" aria-controls="navbar" >
+				</button>
+				<!-- 主页的链接，出现在最左边的导航栏里 -->
+				<a class="navbar-brand" href={% url 'learning_logs:index' %}>学习笔记</a>
+			</div>
+			
+			<!-- 一组让用户能在网站中导航的链接 -->
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+					<li><a href="{% url 'learning_logs:topics' %}">主题</a></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					{% if user.is_authenticated %}   <!-- 如果用户已登录，该属性值为True -->
+						<li><a>你好, {{ user.username }}!</a></li>
+						<li><a href="{% url 'users:logout' %}">注销</a></li>
+					{% else %}
+						<li><a href="{% url 'users:register' %}">注册</a></li>
+						<li><a href="{% url 'users:login' %}">登录</a></li>
+					{% endif %}
+				</ul>
+			</div>
+	
+		</div>
+    </nav>
+    
+    <div class="container">
+		
+		<div class="page-header">
+			{% block header%} {% endblock header %}
+		</div>
+		<div>
+			{% block content%} {% endblock content %}
+		</div>
+    
+    </div>
+    
+</body>
+</html>
+

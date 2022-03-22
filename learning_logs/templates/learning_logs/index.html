@@ -1,0 +1,20 @@
+<!-- 第一行必须包含标签extends 让Django知道继承了哪个模板 -->
+{% extends "learning_logs/base.html" %}
+
+<!-- 编写父模板中预留的块 -->
+{% block header%} 
+	<div class="jumbotron">
+		<h1>记录你的学习</h1>
+	</div>
+{% endblock header %}
+
+<!-- 编写父模板中预留的块 -->
+{% block content%} 
+	<h2>
+		<a href="{% url 'users:register' %}">注册一个账户</a>
+		来使用学习笔记，记录你正在学习的主题
+	</h2>
+	<h2>
+		无论什么时候当你学习一个主题的新知识时，做一个条目来记录你所学过的内容
+	</h2>
+{% endblock content %}

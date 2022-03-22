@@ -1,0 +1,24 @@
+<!-- 第一行必须包含标签extends 让Django知道继承了哪个模板 -->
+{% extends "learning_logs/base.html" %}
+
+<!-- 编写父模板中预留的块 -->
+{% block header%} 
+	<h2>主题</h2>
+{% endblock header %}
+
+<!-- 编写父模板中预留的块 -->
+{% block content%} 
+	
+	<ul>
+		{% for topic in topics %}    <!-- 循环遍历topics -->
+			<li><h3>
+				   <!-- 添加了topic.id属性，表明需要提供实参topic.id -->	<!-- 显示topic,需要用双花括号 -->
+				<a href="{% url 'learning_logs:topic' topic.id %}">{{ topic }}</a>
+			</h3></li>     
+			{% empty %}				 <!-- 如果topics为空 -->
+				<li>没有主题被添加</li>
+		{% endfor %}
+	</ul>
+	
+	<h3><a href="{% url 'learning_logs:new_topic' %}">添加一个新主题</a></h3>
+{% endblock content %}
